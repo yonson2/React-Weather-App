@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/yonson2/React-Weather-App#readme",
   "dependencies": {
+    "axios": "^0.9.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.0"
