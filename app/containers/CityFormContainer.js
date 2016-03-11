@@ -26,11 +26,6 @@ var CityFormContainer = React.createClass({
     //Takes an event from the input field.
     //Prevent page reload
     e.preventDefault();
-    console.log(this.state.city);
-    weather.getCityWeather(this.state.city)
-      .then(function (wInfo) {
-        console.log(wInfo);
-      });
     this.context.router.push('/forecast/' + this.state.city);
   },
   render: function () {
