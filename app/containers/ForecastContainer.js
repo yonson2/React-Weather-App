@@ -3,6 +3,9 @@ var weather = require('../utils/weather');
 var Forecast = require('../components/Forecast');
 
 var ForecastContainer = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
   getInitialState: function() {
     return {
       isLoading: true,
@@ -15,17 +18,24 @@ var ForecastContainer = React.createClass({
         this.setState({
           isLoading: false,
           forecast: forecast.data
-        })
-        console.log(this.state.forecast);
+        });
       }.bind(this));
   },
-  //TODO: PropTypes for Forecast component
+  handleClick: function (weather) {
+    this.context.router.push({
+      pathname: '/detail/' + this.props.routeParams.city,
+      state: {
+        weather: weather
+      }
+    })
+  },
   render: function () {
     return (
       <Forecast
         city={this.props.routeParams.city}
         isLoading={this.state.isLoading}
-        forecast={this.state.forecast} />
+        forecast={this.state.forecast}
+        handleClick={this.handleClick}/>
     )
   }
 })

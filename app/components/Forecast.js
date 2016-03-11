@@ -2,6 +2,7 @@ var React = require('react');
 var PropTypes = React.PropTypes;
 var Loading = require('./Loading');
 var parser = require('../utils/parser');
+var Link = require('react-router').Link;
 
 var styles = {
   container: {
@@ -38,18 +39,18 @@ var styles = {
   dayBox: {
     margin: '15px',
     textTransform: 'capitalize',
-    color: 'MediumVioletRed'
+    color: 'MediumVioletRed',
+    cursor: 'pointer'
   }
 }
 
 function Day (props) {
-  console.log(props.info);
   var date = props.info.dt;
   var weatherDesc = props.info.weather[0].description;
   return (
-    <div style={styles.dayBox}>
-      <h1>{weatherDesc}</h1>
-      <h2 style={styles.subheader}>{parser.getDate(date)}</h2>
+    <div style={styles.dayBox} onClick={props.handleClick}>
+        <h1>{weatherDesc}</h1>
+        <h2 style={styles.subheader}>{parser.getDate(date)}</h2>
     </div>
   )
 }
@@ -60,7 +61,7 @@ function DaysWrapper (props) {
       <h1 style={styles.header} >{props.city}</h1>
       <div style={styles.container}>
         {props.forecast.list.map(function(listItem) {
-          return <Day key={listItem.dt} info={listItem} />
+          return <Day key={listItem.dt} info={listItem} handleClick={props.handleClick.bind(null, listItem)} />
         })}
       </div>
     </div>
@@ -69,12 +70,13 @@ function DaysWrapper (props) {
 function Forecast (props) {
   return props.isLoading
     ? <Loading />
-    : <DaysWrapper city={props.city} forecast={props.forecast} />
+  : <DaysWrapper city={props.city} forecast={props.forecast} handleClick={props.handleClick}/>
 }
 
 Forecast.propTypes = {
   city: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  forecast: PropTypes.object.isRequired
+  forecast: PropTypes.object.isRequired,
+  handleClick: PropTypes.func.isRequired
 }
 module.exports = Forecast;
