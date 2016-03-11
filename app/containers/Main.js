@@ -1,11 +1,16 @@
 var React = require('react');
 var Header = require('../components/Header');
-require('../main.css');
-
+//require('../main.css');
+var styles = {
+  container: {
+    height: '92%',
+    width: '100%'
+  }
+}
 var Main = React.createClass({
   render: function () {
     return (
-      <div className='main-container'>
+      <div style={styles.container}>
         <Header header='React Weather App' />
         {this.props.children}
       </div>

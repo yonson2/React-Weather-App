@@ -5,12 +5,14 @@ var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 var hashHistory = ReactRouter.hashHistory;
 var Main = require('../containers/Main');
-var HomeContainer = require('../containers/HomeContainer');
+var Home = require('../components/Home');
+var Forecast = require('../components/Forecast');
 
 var routes = (
   <Router history={hashHistory}>
     <Route path='/' component={Main}>
-      <IndexRoute component={HomeContainer} />
+      <IndexRoute component={Home} />
+      <Route path='forecast/:city' component={Forecast} />
     </Route>
   </Router>
 )
